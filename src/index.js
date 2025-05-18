@@ -1,29 +1,80 @@
+// require('dotenv').config({path: './env'})x
+
 // Load environment variables
-import dotenv from "dotenv";
+
+import dotenv from "dotenv"
+import connectDB from "./db/index.js";
+
 dotenv.config({
-  path: './env'  // Make sure your env file is named exactly "env" or change this accordingly
-});
+  path: './env'
+})
 
-import mongoose from "mongoose";  // You forgot to import mongoose
-import express from "express";
-const app = express();
 
-(async () => {
-  try {
-    // Use template literals correctly with backticks (`), not single quotes (')
-    await mongoose.connect(`${process.env.MONGODB_URL}`);
+connectDB()
+.then(() => {
+  app.listen(process.env.PORT || 8000, () => {
+    console.log(`Server is running at port : ${process.env.PORT}`);
+  } )
+})
+.catch((err) => {
+  console.log("MONGO db connection failed !!!", err);
+})
 
-    app.on("error", (error) => {
-      console.log("Error:", error);
-      throw error;
-    });
 
-    const port = process.env.PORT || 8000;  // Provide a fallback port
 
-    app.listen(port, () => {
-      console.log(`App is listening on port ${port}`);
-    });
-  } catch (error) {
-    console.error("ERROR:", error);
-  }
-})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+import express from "express"
+const app = express()
+
+
+;(async () => {
+   try {
+ await  mongoose.connect('${process.env.MONGODB_URL')
+ app.on("error", (error) => {
+  console.log("ERRr:", error);
+  throw error
+ })
+
+ 
+
+ app.listen(process.env.PORT, () => {
+  console.log('App is listening on port ${process.env.PORT} ');
+ })
+   }catch (error) {
+    console.error("ERROR:", error)
+   }
+})
+*/
